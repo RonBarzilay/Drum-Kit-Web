@@ -1,4 +1,5 @@
 var numberOfDrums = document.querySelectorAll(".set button").length;
+var availableKeys = ["w", "a", "s", "d", "j", "k", "l"];
 
 for (var i = 0; i < numberOfDrums; i++) {
   document
@@ -6,7 +7,7 @@ for (var i = 0; i < numberOfDrums; i++) {
     [i].addEventListener("click", function () {
       var drumType = this.innerHTML;
       var audio = new Audio();
-      //   audio.play();
+
       makeSound(drumType);
       buttonAnimation(drumType);
     });
@@ -14,8 +15,12 @@ for (var i = 0; i < numberOfDrums; i++) {
 
 // Detecting keydown for the entire document
 document.addEventListener("keydown", function (event) {
-  makeSound(event.key);
-  buttonAnimation(event.key);
+  if (availableKeys.includes(event.key)) {
+    makeSound(event.key);
+    buttonAnimation(event.key);
+  } else {
+    console.log("Key is not available");
+  }
 });
 
 function makeSound(key) {
@@ -43,7 +48,7 @@ function makeSound(key) {
       break;
 
     default:
-      console.log(drumType);
+      console.log(key);
   }
   audio.play();
 }
